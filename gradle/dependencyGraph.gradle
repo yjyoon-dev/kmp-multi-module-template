@@ -1,0 +1,109 @@
+tasks.register('projectDependencyGraph') {
+    doLast {
+        def dotFileName = 'project.dot'
+        def dot = new File(rootProject.rootDir, dotFileName)
+        dot.parentFile.mkdirs()
+        dot.delete()
+
+        dot << 'digraph {\n'
+        dot << "  graph [label=\"${rootProject.name}\\n \",labelloc=t,fontsize=32,ranksep=1.4];\n"
+        dot << '  node [style=filled];\n'
+        dot << '  rankdir=TB;\n'
+
+        def rootProjects = []
+        def queue = [rootProject]
+        while (!queue.isEmpty()) {
+            def project = queue.remove(0)
+            rootProjects.add(project)
+            queue.addAll(project.childProjects.values())
+        }
+
+        def projects = new LinkedHashSet<Project>()
+        def dependencies = new LinkedHashMap<Tuple2<Project, Project>, List<String>>()
+        def featureProjects = []
+        def coreProjects = []
+
+        queue = [rootProject]
+        while (!queue.isEmpty()) {
+            def project = queue.remove(0)
+            queue.addAll(project.childProjects.values())
+
+            if (project.path.contains(":feature:")) {
+                featureProjects.add(project)
+            }
+            if (project.path.contains(":core:")) {
+                coreProjects.add(project)
+            }
+
+            project.configurations.configureEach { config ->
+                if (config.name.toLowerCase().contains("test")) return
+                config.dependencies
+                        .withType(ProjectDependency)
+                        .collect { it.dependencyProject }
+                        .each { dependency ->
+                            projects.add(project)
+                            projects.add(dependency)
+                            rootProjects.remove(dependency)
+
+                            def graphKey = new Tuple2<Project, Project>(project, dependency)
+                            def traits = dependencies.computeIfAbsent(graphKey) { new ArrayList<String>() }
+
+                            if (config.name.toLowerCase().endsWith('implementation')) {
+                                traits.add('style=dotted')
+                            }
+                        }
+            }
+        }
+
+        projects = projects.sort { it.path }
+
+        dot << '\n  # Projects\n\n'
+        for (project in projects) {
+            def traits = []
+
+            if (rootProjects.contains(project)) {
+                traits.add('shape=box')
+                traits.add('fillcolor="#00E489"')
+                traits.add('fontcolor="#073042"')
+            } else if (featureProjects.contains(project)) {
+                traits.add('fillcolor="#FF8A65"')
+                traits.add('fontcolor="#FFFFFF"')
+            } else if (coreProjects.contains(project)) {
+                traits.add('fillcolor="#1A73E8"')
+                traits.add('fontcolor="#FFFFFF"')
+            } else {
+                traits.add('fillcolor="#eeeeee"')
+            }
+
+            dot << "  \"${project.path}\" [${traits.join(", ")}];\n"
+        }
+
+        dot << '\n  {rank = same;'
+        for (project in projects) {
+            if (rootProjects.contains(project)) {
+                dot << " \"${project.path}\";"
+            }
+        }
+        dot << '}\n'
+
+        dot << '\n  # Dependencies\n\n'
+        dependencies.forEach { key, traits ->
+            dot << "  \"${key.first.path}\" -> \"${key.second.path}\""
+            if (!traits.isEmpty()) {
+                dot << " [${traits.join(", ")}]"
+            }
+            dot << '\n'
+        }
+
+        dot << '}\n'
+
+        def p = "dot -Tpng -O ${dotFileName}".execute([], dot.parentFile)
+        p.waitFor()
+        if (p.exitValue() != 0) {
+            throw new RuntimeException(p.errorStream.text)
+        }
+        dot.delete()
+
+        println("Project module dependency graph created at ${dot.absolutePath}.png")
+    }
+}
