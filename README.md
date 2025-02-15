@@ -23,7 +23,7 @@ In addition, **essential libraries** that support multi-platforms such as [coil]
 
 ## Multi Module
 <p align="center">
-<img width="720" src="https://github.com/user-attachments/assets/f53a825d-7d4d-4e94-9a7d-a890e3bdcb08" />
+<img width="720" src="https://github.com/user-attachments/assets/e01f0ac2-befc-40ba-a30a-5d4cb3c15ebe" />
 </p>
 
 <table>
@@ -54,13 +54,13 @@ In addition, **essential libraries** that support multi-platforms such as [coil]
   <tr>
    <td><code>core:designsystem</code>
    </td>
-   <td>Design system which includes Core UI components (many of which are customized Material 3 components), app theme and icons. The design system can be viewed by running the <code>app-nia-catalog</code> run configuration. 
+   <td>Design system which includes Core UI components such as customized Material 3 components. 
    </td>
   </tr>
   <tr>
    <td><code>core:ui</code>
    </td>
-   <td>Composite UI components and resources used by feature modules, such as the news feed. Unlike the <code>designsystem</code> module, it is dependent on the data layer since it renders models, like news resources. 
+   <td>Composite UI components and resources used by feature modules. Unlike the <code>designsystem</code> module, it is dependent on the data layer since it renders models. 
    </td>
   </tr>
   <tr>
@@ -109,7 +109,7 @@ In addition, **essential libraries** that support multi-platforms such as [coil]
 ### Navigation
 - navigation-compose
 
-### Datasource
+### Data
 - Room
 - Datastore
 - [Ktor](https://ktor.io/)
@@ -131,9 +131,9 @@ In addition, **essential libraries** that support multi-platforms such as [coil]
 
 ## How to use
 1. First, modify `rootProject.name` on root `settings.gradle.kts`.
-2. Replace all `dev.yjyoon.template` string to your package name. (Use `cmd(ctrl)`+`shift`+`R` on Android Studio.)
+2. Replace all `dev.yjyoon.template` string to your package name. (Use `cmd(ctrl)`+`shift`+`R` on Android Studio)
 3. Replace all `template` string to your project name.
-4. Rename all package directories to your package name. (You can change all package directory names at once through Android Studio.)
+4. Rename all package directories to your package name. (You can change all package directory names at once through Android Studio)
 5. Input your name to license header on `SpotlessPlugin.kt` 
 6. Finally, `clean` your project.
 
