@@ -4,6 +4,7 @@ plugins {
     id("template.convention.kmp.android")
     id("template.convention.kmp.ios")
     id("template.convention.kotlin.serialization")
+    id("template.convention.ktorfit")
 }
 
 android.namespace = "dev.yjyoon.template.core.network"
