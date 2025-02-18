@@ -6,6 +6,7 @@ import dev.yjyoon.template.buildlogic.convention.extension.composeCompiler
 import dev.yjyoon.template.buildlogic.convention.extension.kotlin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
 
 @Suppress("unused")
 class KmpComposePlugin : Plugin<Project> {
@@ -21,7 +22,7 @@ class KmpComposePlugin : Plugin<Project> {
                 }
             }
             composeCompiler {
-                enableStrongSkippingMode.set(true)
+                featureFlags.add(ComposeFeatureFlag.StrongSkipping)
             }
             kotlin {
                 with(sourceSets) {
