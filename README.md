@@ -110,8 +110,10 @@ In addition, **essential libraries** that support multi-platforms such as [coil]
 - navigation-compose
 
 ### Data
+- [Okio](https://square.github.io/okio/)
+- DataStore
+- SQLite
 - Room
-- Datastore
 - [Ktor](https://ktor.io/)
 - [Ktorfit](https://foso.github.io/Ktorfit/)
 
