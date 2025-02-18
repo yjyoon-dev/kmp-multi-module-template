@@ -21,6 +21,7 @@ class RoomPlugin : Plugin<Project> {
                     getByName("commonMain").apply {
                         dependencies {
                             implementation(libs.library("room-runtime"))
+                            implementation(libs.library("sqlite-bundled"))
                         }
                     }
                 }
