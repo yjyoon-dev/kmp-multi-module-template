@@ -5,7 +5,7 @@ plugins {
     id("template.convention.kmp.ios")
 }
 
-android.namespace = "dev.yjyoon.template.core.common"
+android.namespace = "dev.yjyoon.template.core.data"
 
 kotlin {
     sourceSets {

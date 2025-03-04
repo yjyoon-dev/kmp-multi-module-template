@@ -6,7 +6,7 @@ plugins {
     id("template.convention.room")
 }
 
-android.namespace = "dev.yjyoon.template.core.model"
+android.namespace = "dev.yjyoon.template.core.database"
 
 kotlin {
     sourceSets {
