@@ -16,12 +16,21 @@
 
 package dev.yjyoon.template.app
 
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import dev.yjyoon.template.feature.main.MainRoute
+import dev.yjyoon.template.feature.main.mainScreen
 
 @Composable
-fun App() {
-    MaterialTheme {
-        MyNavHost()
+fun MyNavHost(
+    navController: NavHostController = rememberNavController(),
+) {
+    NavHost(
+        navController = navController,
+        startDestination = MainRoute,
+    ) {
+        mainScreen()
     }
 }

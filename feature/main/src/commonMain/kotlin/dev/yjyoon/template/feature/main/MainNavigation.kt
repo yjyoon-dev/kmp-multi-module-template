@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-package dev.yjyoon.template.app
+package dev.yjyoon.template.feature.main
 
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.Composable
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.composable
+import kotlinx.serialization.Serializable
 
-@Composable
-fun App() {
-    MaterialTheme {
-        MyNavHost()
+@Serializable
+data object MainRoute
+
+fun NavGraphBuilder.mainScreen() {
+    composable<MainRoute> {
+        MainScreen()
     }
 }

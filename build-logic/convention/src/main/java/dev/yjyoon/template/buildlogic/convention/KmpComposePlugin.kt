@@ -4,6 +4,8 @@ import dev.yjyoon.template.buildlogic.convention.extension.android
 import dev.yjyoon.template.buildlogic.convention.extension.compose
 import dev.yjyoon.template.buildlogic.convention.extension.composeCompiler
 import dev.yjyoon.template.buildlogic.convention.extension.kotlin
+import dev.yjyoon.template.buildlogic.convention.extension.library
+import dev.yjyoon.template.buildlogic.convention.extension.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
@@ -34,6 +36,7 @@ class KmpComposePlugin : Plugin<Project> {
                             implementation(compose.dependencies.ui)
                             implementation(compose.dependencies.components.resources)
                             implementation(compose.dependencies.components.uiToolingPreview)
+                            implementation(libs.library("navigation-compose"))
                         }
                     }
                     find { it.name == "androidMain" }?.apply {
