@@ -24,7 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun MainScreen(modifier: Modifier = Modifier) {
+internal fun MainScreen(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier.then(Modifier.fillMaxSize()),
         contentAlignment = Alignment.Center,
