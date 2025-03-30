@@ -84,8 +84,7 @@ gradlePlugin {
         }
         register("spotless") {
             id = "template.convention.spotless"
-            implementationClass =
-                "dev.yjyoon.template.buildlogic.convention.SpotlessConventionPlugin"
+            implementationClass = "dev.yjyoon.template.buildlogic.convention.SpotlessPlugin"
         }
         register("detekt") {
             id = "template.convention.detekt"
